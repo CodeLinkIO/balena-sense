@@ -25,9 +25,9 @@ class balenaSense():
             print('Enviro Plus hat not found')
         else:
             try:
-                self.readfrom = 'enviroplus'
                 self.sensor = ENVIROPLUS()
                 print('Found Enviro+ Hat')
+                self.readfrom = 'enviroplus'
             except RuntimeError:
                 # Fix issue of LTR559 not found
                 print('SUPSPECT USING CHEAP CHINESE BME680 :)')
