@@ -24,9 +24,13 @@ class balenaSense():
         except IOError:
             print('Enviro Plus hat not found')
         else:
-            self.readfrom = 'enviroplus'
-            self.sensor = ENVIROPLUS()
-            print('Found Enviro+ Hat')
+            try:
+                self.readfrom = 'enviroplus'
+                self.sensor = ENVIROPLUS()
+                print('Found Enviro+ Hat')
+            except RuntimeError:
+                # Fix issue of LTR559 not found
+                print('SUPSPECT USING CHEAP CHINESE BME680 :)')
 
 
         # Next, check to see if there is a BME680 on the I2C bus
