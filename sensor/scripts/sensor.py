@@ -23,6 +23,8 @@ class balenaSense():
             self.bus.write_byte(0x23, 0) # test if we can connect to ADS1015
         except IOError:
             print('Enviro Plus hat not found')
+            # Fix issue of LTR559 not found
+            print('SUPSPECT USING CHEAP CHINESE BME680 :)')
         else:
             try:
                 self.sensor = ENVIROPLUS()
@@ -41,8 +43,8 @@ class balenaSense():
                 print('BME680 not found on 0x76, trying 0x77')
             else:
                 print('BME680 found on 0x76')
-                self.sensor = BME680(self.readfrom)
                 self.readfrom = 'bme680primary'
+                self.sensor = BME680(self.readfrom)
 
         # If we didn't find it on 0x76, look on 0x77
         if self.readfrom == 'unset':
@@ -52,8 +54,8 @@ class balenaSense():
                 print('BME680 not found on 0x77')
             else:
                 print('BME680 found on 0x77')
-                self.sensor = BME680(self.readfrom)
                 self.readfrom = 'bme680secondary'
+                self.sensor = BME680(self.readfrom)
 
 
         # If no BME680, is there a Sense HAT?
